@@ -1,57 +1,67 @@
-/* ============================================================
-   main.js — navigation behavior + data-driven project cards
+﻿/* ============================================================
+   main.js - nav behavior + data-driven project cards
    Touches only nav/scroll/content DOM. Never the canvas.
    ============================================================ */
 (function () {
   "use strict";
 
-  /* ----------------------------------------------------------
-     Project data (each has a non-empty title + description)
-     ---------------------------------------------------------- */
   var projects = [
     {
+      kicker: "Digital Architecture · SystemVerilog",
       title: "32-bit RISC-V Microcontroller (OTTER MCU)",
       description:
-        "Designed and implemented a 32-bit RISC-V (RV32I) microcontroller in SystemVerilog, building the datapath, control unit, and memory interface from the instruction set up. Brought it up on a Basys 3 FPGA in Vivado and used timing analysis and the on-board peripherals to verify it ran real programs."
+        "I built a 32-bit RV32I processor in SystemVerilog, datapath and control logic and all. The hardest part was tracking down branching and memory-mapped I/O bugs one waveform at a time, which is also where I learned the most.",
+      tags: ["Datapath + control", "Memory-mapped I/O", "Waveform debug"]
     },
     {
+      kicker: "Analog Design · Signal Processing",
       title: "FSK IR Communication System",
       description:
-        "Built an infrared link that encodes data with frequency-shift keying, handling modulation on the transmit side and demodulation and decoding on the receive side. Tuned the analog front end and verified the signal chain with an oscilloscope and logic analyzer."
+        "I designed an IR link that sends ASCII data using frequency-shift keying. I simulated the analog front end in LTspice first, then tuned it on the bench until transmission actually stayed reliable.",
+      tags: ["TIA + filtering", "Frequency discrimination", "Bench validation"]
     },
     {
-      title: "IEEE Technical Report — Low-Voltage Sensing & Indication Circuit",
+      kicker: "Analog Design · Technical Writing",
+      title: "IEEE Low-Voltage Sensing Circuit",
       description:
-        "Authored an IEEE-format technical report on a low-voltage sensing and indication circuit, covering the design rationale, LTspice simulation, and measured results. Focused on making the analysis clear and reproducible for a technical reader."
+        "I designed an undervoltage detection circuit and characterized it with a repeatable voltage sweep. It trips at 8.02 V with about -6.3 mV of error, and I wrote it all up in an IEEE-format report so the results were traceable.",
+      tags: ["Tolerance analysis", "Voltage sweep", "IEEE report"]
     },
     {
-      title: "FPGA Parking Lot Control System",
+      kicker: "Digital Logic · FPGA",
+      title: "FPGA Parking Lot Controller",
       description:
-        "Implemented a parking-lot controller as a finite state machine on an FPGA, tracking occupancy and driving entry/exit gate logic and indicators. Wrote the RTL in SystemVerilog and validated the state transitions in simulation before deploying to hardware."
+        "A finite state machine on an FPGA that tracks occupancy and drives the entry and exit logic from sensor inputs. I verified the transitions in simulation, then brought it up on hardware using the LEDs and switches to prove it worked.",
+      tags: ["FSM design", "RTL simulation", "On-board debug"]
     },
     {
-      title: "Interactive OO Simulation with A* & Dijkstra Pathfinding",
+      kicker: "Software · Algorithms",
+      title: "Pathfinding Simulation",
       description:
-        "Wrote an object-oriented simulation in Java where agents navigate a grid using A* and Dijkstra pathfinding. Structured the code around clean class responsibilities and UML, then compared how the two algorithms behaved as the map changed."
+        "A large object-oriented simulation in Java where agents navigate a world using A* and Dijkstra. I put real thought into the entity hierarchy so it stayed clean as the behaviors got more complex, and compared how the two algorithms held up.",
+      tags: ["A* / Dijkstra", "OO design", "yEd / UML"]
     },
     {
-      title: "Firebase-Based Online Chat & Game Platform",
+      kicker: "Web · Real-time",
+      title: "Firebase Chat & Game Platform",
       description:
-        "Built an online chat and game platform backed by Firebase for real-time data and auth. Handled the client logic, live message sync, and game state so multiple users could interact together in the browser."
+        "A web app with Google sign-in, live chat, and a Hangman game backed by a Firebase leaderboard. I handled the client logic and the real-time sync so multiple people could actually play and talk together.",
+      tags: ["Firebase", "Google OAuth", "Live sync"]
     }
   ];
 
-  /* ----------------------------------------------------------
-     Render project cards into the grid
-     ---------------------------------------------------------- */
   function renderProjects() {
     var grid = document.getElementById("projects-grid");
     if (!grid) return;
 
     var frag = document.createDocumentFragment();
-    projects.forEach(function (p) {
+    projects.forEach(function (p, i) {
       var card = document.createElement("article");
       card.className = "project-card card";
+
+      var kicker = document.createElement("p");
+      kicker.className = "project-card__kicker";
+      kicker.textContent = p.kicker;
 
       var h3 = document.createElement("h3");
       h3.className = "project-card__title";
@@ -61,16 +71,23 @@
       desc.className = "project-card__desc";
       desc.textContent = p.description;
 
+      var tags = document.createElement("ul");
+      tags.className = "project-card__tags";
+      p.tags.forEach(function (t) {
+        var li = document.createElement("li");
+        li.textContent = t;
+        tags.appendChild(li);
+      });
+
+      card.appendChild(kicker);
       card.appendChild(h3);
       card.appendChild(desc);
+      card.appendChild(tags);
       frag.appendChild(card);
     });
     grid.appendChild(frag);
   }
 
-  /* ----------------------------------------------------------
-     Mobile nav toggle
-     ---------------------------------------------------------- */
   function initMobileNav() {
     var toggle = document.querySelector(".nav__toggle");
     var menu = document.getElementById("nav-menu");
@@ -86,17 +103,11 @@
       toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
 
-    // Close the menu after selecting a link
     menu.addEventListener("click", function (e) {
-      if (e.target.closest(".nav__link")) {
-        closeMenu();
-      }
+      if (e.target.closest(".nav__link")) closeMenu();
     });
   }
 
-  /* ----------------------------------------------------------
-     Scroll-spy: highlight the nav link for the section in view
-     ---------------------------------------------------------- */
   function initScrollSpy() {
     var links = Array.prototype.slice.call(document.querySelectorAll(".nav__link"));
     if (!links.length || !("IntersectionObserver" in window)) return;
@@ -114,31 +125,20 @@
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          setActive(entry.target.id);
-        }
+        if (entry.isIntersecting) setActive(entry.target.id);
       });
-    }, {
-      rootMargin: "-45% 0px -50% 0px",
-      threshold: 0
-    });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
 
     document.querySelectorAll("main section[id]").forEach(function (section) {
       observer.observe(section);
     });
   }
 
-  /* ----------------------------------------------------------
-     Footer year
-     ---------------------------------------------------------- */
   function initYear() {
     var el = document.getElementById("year");
     if (el) el.textContent = String(new Date().getFullYear());
   }
 
-  /* ----------------------------------------------------------
-     Init
-     ---------------------------------------------------------- */
   function init() {
     renderProjects();
     initMobileNav();
@@ -152,3 +152,4 @@
     init();
   }
 })();
+

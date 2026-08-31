@@ -1,7 +1,7 @@
-/* ============================================================
-   verify.mjs — lightweight static checks for the 5 correctness
-   properties defined in the design. No external dependencies:
-   parses the static files directly and asserts structural facts.
+﻿/* ============================================================
+   verify.mjs - lightweight static checks for the correctness
+   properties. No external dependencies: parses the static
+   files directly and asserts structural facts.
    Run: node tests/verify.mjs
    ============================================================ */
 import { readFileSync } from "node:fs";
@@ -21,17 +21,10 @@ let failed = 0;
 const failures = [];
 
 function assert(cond, msg) {
-  if (cond) {
-    passed++;
-  } else {
-    failed++;
-    failures.push(msg);
-  }
+  if (cond) { passed++; } else { failed++; failures.push(msg); }
 }
 
-/* Helpers ---------------------------------------------------- */
 function attrsOfAnchors(source) {
-  // returns array of {href, target, rel, raw} for each <a ...>
   const out = [];
   const re = /<a\b([^>]*)>/gi;
   let m;
@@ -49,40 +42,40 @@ const anchors = attrsOfAnchors(html);
 
 /* ============================================================
    Property 1: Navigation and anchor correspondence
+   Every section is reachable from an in-page anchor (nav link,
+   brand, or CTA), section ids are unique, and every nav target
+   resolves to a real section.
    ============================================================ */
 (function property1() {
-  // section ids from <section id="...">
   const sectionIds = [];
   const secRe = /<section\b[^>]*\bid\s*=\s*"([^"]+)"/gi;
   let m;
   while ((m = secRe.exec(html)) !== null) sectionIds.push(m[1]);
 
-  // nav link targets from <a class="nav__link" href="#...">
-  const navTargets = [];
-  const navRe = /<a\b[^>]*class\s*=\s*"nav__link"[^>]*href\s*=\s*"#([^"]+)"/gi;
-  while ((m = navRe.exec(html)) !== null) navTargets.push(m[1]);
+  // Any in-page anchor target (nav links, brand, CTA buttons)
+  const anchorTargets = anchors
+    .map((a) => a.href)
+    .filter((h) => h && h.startsWith("#"))
+    .map((h) => h.slice(1));
 
-  const expected = ["home", "about", "projects", "skills", "experience", "ai", "contact"];
+  const expected = ["home", "projects", "skills", "about", "ai", "contact"];
 
-  // all section ids unique
   const uniqueSections = new Set(sectionIds);
   assert(uniqueSections.size === sectionIds.length, "P1: section ids are not unique: " + sectionIds.join(","));
 
-  // exactly the expected set of sections
   assert(
     expected.every((id) => uniqueSections.has(id)) && sectionIds.length === expected.length,
     "P1: sections != expected set. got=" + sectionIds.join(",")
   );
 
-  // every nav target resolves to exactly one section
-  navTargets.forEach((t) => {
-    assert(uniqueSections.has(t), "P1: nav link #" + t + " has no matching section");
+  // every in-page anchor target resolves to a real section
+  anchorTargets.forEach((t) => {
+    assert(uniqueSections.has(t), "P1: in-page link #" + t + " has no matching section");
   });
 
-  // every section is targeted by exactly one nav link
+  // every section is reachable by at least one in-page anchor
   sectionIds.forEach((id) => {
-    const count = navTargets.filter((t) => t === id).length;
-    assert(count === 1, "P1: section #" + id + " is targeted by " + count + " nav links (expected 1)");
+    assert(anchorTargets.includes(id), "P1: section #" + id + " is not reachable from any in-page link");
   });
 
   // AI link labeled "AI" targeting #ai
@@ -92,10 +85,8 @@ const anchors = attrsOfAnchors(html);
 
 /* ============================================================
    Property 2: Every project card is complete
-   (data-driven from js/main.js projects array)
    ============================================================ */
 (function property2() {
-  // crude but effective: pull the projects array literal and eval titles/descriptions
   const titleMatches = [...mainJs.matchAll(/title:\s*"([^"]*)"/g)].map((m) => m[1]);
   const descMatches = [...mainJs.matchAll(/description:\s*\n?\s*"([^"]*)"/g)].map((m) => m[1]);
 
@@ -105,7 +96,11 @@ const anchors = attrsOfAnchors(html);
   titleMatches.forEach((t, i) => assert(t.trim().length > 0, "P2: project " + i + " has empty title"));
   descMatches.forEach((d, i) => assert(d.trim().length > 0, "P2: project " + i + " has empty description"));
 
-  // required project keywords present
+  // tag arrays present and non-empty for each project
+  const tagArrays = [...mainJs.matchAll(/tags:\s*\[([^\]]*)\]/g)].map((m) => m[1].trim());
+  assert(tagArrays.length === 6, "P2: expected 6 project tag arrays, found " + tagArrays.length);
+  tagArrays.forEach((t, i) => assert(t.length > 0, "P2: project " + i + " has no tags"));
+
   const required = ["OTTER", "FSK IR", "IEEE", "Parking Lot", "Dijkstra", "Firebase"];
   required.forEach((kw) => {
     assert(mainJs.includes(kw), "P2: required project keyword missing: " + kw);
@@ -113,18 +108,17 @@ const anchors = attrsOfAnchors(html);
 })();
 
 /* ============================================================
-   Property 3: External contact links open safely in a new tab
+   Property 3: External links open safely in a new tab
    ============================================================ */
 (function property3() {
   anchors.forEach((a) => {
     if (!a.href) return;
     const isExternal = /^https?:\/\//i.test(a.href);
-    if (!isExternal) return; // mailto/tel/relative excluded
+    if (!isExternal) return;
     assert(a.target === "_blank", "P3: external link " + a.href + " missing target=_blank");
     assert(/noopener/.test(a.rel || ""), "P3: external link " + a.href + " missing rel=noopener");
   });
 
-  // mailto and tel present and NOT target=_blank
   const mailto = anchors.find((a) => (a.href || "").startsWith("mailto:"));
   const tel = anchors.find((a) => (a.href || "").startsWith("tel:"));
   assert(!!mailto, "P3: mailto link missing");
@@ -134,21 +128,18 @@ const anchors = attrsOfAnchors(html);
 })();
 
 /* ============================================================
-   Property 4: Background never obstructs content or interaction
+   Property 4: Background never obstructs content
    ============================================================ */
 (function property4() {
-  // canvas exists, aria-hidden
   assert(/<canvas\b[^>]*id\s*=\s*"circuit-bg"[^>]*aria-hidden\s*=\s*"true"/i.test(html),
     "P4: canvas #circuit-bg missing or not aria-hidden");
 
-  // CSS: #circuit-bg has negative/low z-index and pointer-events: none
   const bgBlock = (css.match(/#circuit-bg\s*\{[^}]*\}/i) || [""])[0];
   assert(/pointer-events\s*:\s*none/i.test(bgBlock), "P4: #circuit-bg missing pointer-events:none");
   assert(/z-index\s*:\s*-?\d+/i.test(bgBlock), "P4: #circuit-bg missing z-index");
   const z = parseInt((bgBlock.match(/z-index\s*:\s*(-?\d+)/i) || [])[1], 10);
   assert(z < 1, "P4: #circuit-bg z-index (" + z + ") should be below content");
 
-  // header sits above content
   assert(/\.site-header\s*\{[^}]*z-index\s*:\s*1000/i.test(css), "P4: sticky header z-index not above content");
 })();
 
@@ -156,7 +147,6 @@ const anchors = attrsOfAnchors(html);
    Property 5: Local asset references are relative
    ============================================================ */
 (function property5() {
-  // collect all href/src values
   const refs = [];
   const attrRe = /\b(?:href|src)\s*=\s*"([^"]*)"/gi;
   let m;
@@ -166,20 +156,19 @@ const anchors = attrsOfAnchors(html);
     const isExternalProfile = /^https?:\/\//i.test(ref);
     const isMailOrTel = /^(mailto:|tel:)/i.test(ref);
     const isAnchor = ref.startsWith("#");
-    if (isExternalProfile || isMailOrTel || isAnchor) return; // excluded
+    if (isExternalProfile || isMailOrTel || isAnchor) return;
 
-    // local asset: must not start with "/" and must not have a scheme+origin
     assert(!ref.startsWith("/"), "P5: local asset ref has leading slash: " + ref);
     assert(!/^[a-z]+:\/\//i.test(ref), "P5: local asset ref has absolute origin: " + ref);
   });
 
-  // sanity: expected local assets referenced relatively
-  ["css/styles.css", "js/main.js", "js/circuit-background.js", "assets/resume.pdf"].forEach((asset) => {
+  ["css/styles.css", "js/main.js", "js/circuit-background.js", "assets/resume.pdf",
+   "assets/headshot.jpg", "assets/family.jpg", "assets/friends.jpg"].forEach((asset) => {
     assert(refs.includes(asset), "P5: expected relative asset reference missing: " + asset);
   });
 })();
 
-/* Extra structural sanity: reduced-motion + visibility handling in bg */
+/* Background sanity */
 (function bgSanity() {
   assert(/prefers-reduced-motion/.test(bgJs), "BG: reduced-motion not handled");
   assert(/visibilitychange/.test(bgJs), "BG: visibilitychange not handled");
@@ -187,7 +176,6 @@ const anchors = attrsOfAnchors(html);
   assert(/getContext/.test(bgJs), "BG: canvas not feature-detected");
 })();
 
-/* Report ----------------------------------------------------- */
 console.log("Passed: " + passed);
 console.log("Failed: " + failed);
 if (failed > 0) {
