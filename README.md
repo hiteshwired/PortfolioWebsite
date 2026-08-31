@@ -8,10 +8,18 @@ I like working at the line between hardware and software: RISC-V processors, FPG
 
 ## What is in here
 
-- A single-page site with a hero, my work, how I like to work, an about section, my take on using AI, and contact info.
-- Six data-driven project write-ups, each with the tools I actually used.
+- A single-page site: a hero, my work, how I like to work, an about section, my take on using AI, and contact info.
+- Six project write-ups, each with the tools I actually used.
 - An animated circuit-board background rendered on a canvas.
 - Everything static, so it runs anywhere and hosts for free.
+
+## How I built it
+
+I built this with an agentic AI workflow, and I am pretty open about that because knowing how to work with these tools is part of the job now.
+
+My main environment is [Kiro](https://kiro.dev), an agentic IDE. I drove it spec-first: I described what I wanted, we worked through requirements and a design together, and then it generated the implementation while I reviewed, corrected course, and made the calls on structure and copy. Along the way I leaned on Claude, DeepSeek, and Gemini for second opinions, comparing approaches and sanity-checking things I was not sure about.
+
+The way I see it, the AI moves fast on the parts I already understand. My job is to point it in the right direction, catch the things it gets subtly wrong, and own the result. That is the same habit I bring to embedded work, where a confident-sounding answer is exactly the kind you double-check. The prompts, the decisions, and the final review here are mine.
 
 ## Built with
 

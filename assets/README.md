@@ -7,4 +7,4 @@ The images and documents the site loads. Everything is referenced with relative 
 - `family.jpg` — family photo in the About section.
 - `friends.jpg` — friends photo in the About section.
 
-If you swap any of these out, keep the same filename and the site will pick it up with no code changes.
+The photos are resized to 1600px wide and compressed so pages load quickly, especially on mobile. If you swap any of these out, keep the same filename and the site picks it up with no code changes.
