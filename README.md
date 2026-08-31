@@ -1,61 +1,53 @@
-# Hitesh Nandakumar — Portfolio
+﻿# Hitesh Nandakumar
 
-A single-page static portfolio site built with plain HTML, CSS, and vanilla
-JavaScript. No build step, no bundler, no backend. It runs directly in the
-browser and serves as-is on GitHub Pages.
+Computer Engineering student at Cal Poly SLO, into embedded systems and digital design. This repo is my personal site: a place to point people to my projects, my background, and how to reach me.
 
-## Structure
+**Live site → [hiteshwired.github.io/PortfolioWebsite](https://hiteshwired.github.io/PortfolioWebsite/)**
 
-```
-PortfolioWebsite/
-├── index.html                 # Single page: all seven sections + sticky nav
-├── css/styles.css             # Theme, layout, sections, nav, responsiveness
-├── js/main.js                 # Nav toggle, smooth scroll, scroll-spy, project cards
-├── js/circuit-background.js   # Canvas circuit animation
-├── assets/                    # User-supplied resume.pdf (and optional favicon)
-├── .nojekyll                  # Disables Jekyll processing on GitHub Pages
-└── README.md
-```
+I like working at the line between hardware and software: RISC-V processors, FPGAs, analog circuits, and the code that ties it all together. This site is a small example of that. It is hand-written HTML, CSS, and JavaScript with an animated circuit background, no frameworks and no build step.
 
-## Sections
+## What is in here
 
-Home, About, Projects, Skills, Experience, AI, and Contact — all on one page,
-navigated through a sticky top nav with smooth scrolling and a scroll-spy
-active state.
+- A single-page site with a hero, my work, how I like to work, an about section, my take on using AI, and contact info.
+- Six data-driven project write-ups, each with the tools I actually used.
+- An animated circuit-board background rendered on a canvas.
+- Everything static, so it runs anywhere and hosts for free.
 
-## Running locally
+## Built with
 
-Just open `index.html` in a browser. Because all asset references are relative,
-you can also serve the folder with any static server, for example:
+- Plain HTML and CSS, with a small amount of vanilla JavaScript for the nav, project cards, and the background animation.
+- No frameworks, no bundler, no backend. If you can open a file in a browser, you can run it.
 
-```
+## Running it yourself
+
+Clone the repo and open `index.html` in a browser. That is genuinely all it takes.
+
+If you would rather serve it (handy for testing), any static server works:
+
+```bash
 python -m http.server
 ```
 
-Then visit `http://localhost:8000`.
+Then open `http://localhost:8000`.
 
-## Adding your resume
+## Layout
 
-Drop your resume at `assets/resume.pdf`. The "Download Resume" buttons link to
-that relative path. See `assets/README.md` for details.
+```
+index.html                 # The whole page
+css/styles.css             # Theme and layout
+js/main.js                 # Nav, scroll-spy, project cards
+js/circuit-background.js   # The animated background
+assets/                    # Resume, headshot, and photos
+```
 
-## Deploying to GitHub Pages
+## A note on accessibility
 
-1. Push this repository to GitHub.
-2. In the repository, go to **Settings → Pages**.
-3. Under **Build and deployment**, set the source to **Deploy from a branch**.
-4. Choose your default branch and the **`/ (root)`** folder, then save.
-5. GitHub serves the site at `https://<username>.github.io/<repo>/`.
+I tried to keep this usable for everyone: semantic HTML, a skip-to-content link, keyboard-friendly navigation, and visible focus styles. The background animation respects `prefers-reduced-motion` and pauses when the tab is not in view, and the whole site still works with JavaScript turned off.
 
-All internal references use relative paths (no leading slash), so the site works
-correctly under a project subpath. The `.nojekyll` file keeps GitHub Pages from
-running Jekyll over the static assets.
+## Say hello
 
-## Accessibility & performance notes
+- Email: hiteshnandakumar@gmail.com
+- LinkedIn: [linkedin.com/in/hnan06](https://www.linkedin.com/in/hnan06)
+- GitHub: [github.com/hiteshwired](https://github.com/hiteshwired)
 
-- Semantic landmarks, a skip-to-content link, keyboard-operable nav, and visible
-  focus styles.
-- The decorative canvas is `aria-hidden`, ignores pointer events, respects
-  `prefers-reduced-motion`, and pauses when the tab is hidden.
-- The site degrades gracefully with JavaScript disabled: content, nav anchors,
-  and all contact/resume links work natively.
+Thanks for stopping by.
