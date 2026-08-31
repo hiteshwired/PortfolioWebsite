@@ -673,3 +673,13 @@ img { max-width: 100%; display: block; }
   align-self: flex-start;
 }
 .essay-card__link:hover { text-decoration: none; text-shadow: var(--glow-shadow); }
+
+/* Project card report/read link (matches essay link) */
+.project-card__link {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--accent-glow);
+  align-self: flex-start;
+  margin-top: 1rem;
+}
+.project-card__link:hover { text-decoration: none; text-shadow: var(--glow-shadow); }

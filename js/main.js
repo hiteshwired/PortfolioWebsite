@@ -25,7 +25,8 @@
       title: "IEEE Low-Voltage Sensing Circuit",
       description:
         "I designed an undervoltage detection circuit and characterized it with a repeatable voltage sweep. It trips at 8.02 V with about -6.3 mV of error, and I wrote it all up in an IEEE-format report so the results were traceable.",
-      tags: ["Tolerance analysis", "Voltage sweep", "IEEE report"]
+      tags: ["Tolerance analysis", "Voltage sweep", "IEEE report"],
+      link: { href: "assets/reports/ieee-low-voltage-sensing-circuit.pdf", label: "Read the report" }
     },
     {
       kicker: "Digital Logic · FPGA",
@@ -83,6 +84,17 @@
       card.appendChild(h3);
       card.appendChild(desc);
       card.appendChild(tags);
+
+      if (p.link && p.link.href) {
+        var link = document.createElement("a");
+        link.className = "project-card__link";
+        link.href = p.link.href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.innerHTML = (p.link.label || "Read more") + ' <span aria-hidden="true">&#8599;</span>';
+        card.appendChild(link);
+      }
+
       frag.appendChild(card);
     });
     grid.appendChild(frag);
@@ -152,4 +164,5 @@
     init();
   }
 })();
+
 
