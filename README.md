@@ -8,7 +8,7 @@ I like working at the line between hardware and software: RISC-V processors, FPG
 
 ## What is in here
 
-- A single-page site: a hero, my work, how I like to work, an about section, my take on using AI, and contact info.
+- A single-page site: a hero, my work, how I like to work, an about section, my take on using AI, some of my writing on tech ethics, and contact info.
 - Six project write-ups, each with the tools I actually used.
 - An animated circuit-board background rendered on a canvas.
 - Everything static, so it runs anywhere and hosts for free.
@@ -59,3 +59,4 @@ I tried to keep this usable for everyone: semantic HTML, a skip-to-content link,
 - GitHub: [github.com/hiteshwired](https://github.com/hiteshwired)
 
 Thanks for stopping by.
+

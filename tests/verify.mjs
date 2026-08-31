@@ -58,7 +58,7 @@ const anchors = attrsOfAnchors(html);
     .filter((h) => h && h.startsWith("#"))
     .map((h) => h.slice(1));
 
-  const expected = ["home", "projects", "skills", "about", "ai", "contact"];
+  const expected = ["home", "projects", "skills", "about", "ai", "ethics", "contact"];
 
   const uniqueSections = new Set(sectionIds);
   assert(uniqueSections.size === sectionIds.length, "P1: section ids are not unique: " + sectionIds.join(","));
@@ -185,3 +185,4 @@ if (failed > 0) {
 } else {
   console.log("\nAll correctness property checks passed.");
 }
+
