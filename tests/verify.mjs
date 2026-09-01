@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    verify.mjs - lightweight static checks for the correctness
    properties. No external dependencies: parses the static
    files directly and asserts structural facts.
@@ -90,18 +90,18 @@ const anchors = attrsOfAnchors(html);
   const titleMatches = [...mainJs.matchAll(/title:\s*"([^"]*)"/g)].map((m) => m[1]);
   const descMatches = [...mainJs.matchAll(/description:\s*\n?\s*"([^"]*)"/g)].map((m) => m[1]);
 
-  assert(titleMatches.length === 6, "P2: expected 6 project titles, found " + titleMatches.length);
-  assert(descMatches.length === 6, "P2: expected 6 project descriptions, found " + descMatches.length);
+  assert(titleMatches.length === 7, "P2: expected 7 project titles, found " + titleMatches.length);
+  assert(descMatches.length === 7, "P2: expected 7 project descriptions, found " + descMatches.length);
 
   titleMatches.forEach((t, i) => assert(t.trim().length > 0, "P2: project " + i + " has empty title"));
   descMatches.forEach((d, i) => assert(d.trim().length > 0, "P2: project " + i + " has empty description"));
 
   // tag arrays present and non-empty for each project
   const tagArrays = [...mainJs.matchAll(/tags:\s*\[([^\]]*)\]/g)].map((m) => m[1].trim());
-  assert(tagArrays.length === 6, "P2: expected 6 project tag arrays, found " + tagArrays.length);
+  assert(tagArrays.length === 7, "P2: expected 7 project tag arrays, found " + tagArrays.length);
   tagArrays.forEach((t, i) => assert(t.length > 0, "P2: project " + i + " has no tags"));
 
-  const required = ["OTTER", "FSK IR", "IEEE", "Parking Lot", "Dijkstra", "Firebase"];
+  const required = ["OTTER", "FSK IR", "IEEE", "Parking Lot", "Dijkstra", "Firebase", "C Systems"];
   required.forEach((kw) => {
     assert(mainJs.includes(kw), "P2: required project keyword missing: " + kw);
   });

@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    main.js - nav behavior + data-driven project cards
    Touches only nav/scroll/content DOM. Never the canvas.
    ============================================================ */
@@ -6,6 +6,14 @@
   "use strict";
 
   var projects = [
+    {
+      kicker: "Systems Programming · C",
+      title: "C Systems Projects",
+      description:
+        "A collection of low-level C programs built on the POSIX API: 24-bit BMP image processing (contrast, rotation, Sobel edge detection), parallelism with fork and mmap shared memory guarded by an atomic spinlock, and shared-memory IPC between separate processes. No libraries, just the system calls.",
+      tags: ["C", "fork / mmap", "POSIX IPC", "Sobel / BMP"],
+      link: { href: "https://github.com/hiteshwired/c-systems-projects", label: "View code" }
+    },
     {
       kicker: "Digital Architecture · SystemVerilog",
       title: "32-bit RISC-V Microcontroller (OTTER MCU)",
