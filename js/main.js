@@ -18,15 +18,25 @@
       kicker: "Digital Architecture · SystemVerilog",
       title: "32-bit RISC-V Microcontroller (OTTER MCU)",
       description:
-        "I built a 32-bit RV32I processor in SystemVerilog, datapath and control logic and all. The hardest part was tracking down branching and memory-mapped I/O bugs one waveform at a time, which is also where I learned the most.",
-      tags: ["Datapath + control", "Memory-mapped I/O", "Waveform debug"]
+        "I built a 32-bit RV32I processor in SystemVerilog, datapath and control logic and all. The hardest part was tracking down branching and memory-mapped I/O bugs one waveform at a time, which is also where I learned the most. The repo has my RISC-V assembly, a matrix-multiply benchmark, and the seven-segment display peripheral.",
+      tags: ["Datapath + control", "Memory-mapped I/O", "Waveform debug"],
+      link: { href: "https://github.com/hiteshwired/otter-riscv-mcu", label: "View code" }
+    },
+    {
+      kicker: "Digital Architecture · SystemVerilog",
+      title: "Pipelined RISC-V Processor",
+      description:
+        "A pipelined RV32I processor that goes well past the single-cycle design: I added hazard detection with data forwarding and stalling, then wrote targeted assembly to prove it out, including a forwarding test, a load-use case, and a control-hazard program. I benchmarked it with matrix multiply and compared NOP-insertion against forwarding to see the real performance difference.",
+      tags: ["Pipelining", "Hazard detection", "Forwarding + stalls", "Matrix multiply benchmark"],
+      link: { href: "https://github.com/hiteshwired/otter-riscv-mcu/tree/main/asm", label: "View the hazard tests" }
     },
     {
       kicker: "Analog Design · Signal Processing",
       title: "FSK IR Communication System",
       description:
         "I designed an IR link that sends ASCII data using frequency-shift keying. I simulated the analog front end in LTspice first, then tuned it on the bench until transmission actually stayed reliable.",
-      tags: ["TIA + filtering", "Frequency discrimination", "Bench validation"]
+      tags: ["TIA + filtering", "Frequency discrimination", "Bench validation"],
+      link: { href: "https://github.com/hiteshwired/fsk-ir-receiver", label: "View code" }
     },
     {
       kicker: "Analog Design · Technical Writing",
