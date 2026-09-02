@@ -1,7 +1,3 @@
-/* ============================================================
-   main.js - nav behavior + data-driven project cards
-   Touches only nav/scroll/content DOM. Never the canvas.
-   ============================================================ */
 (function () {
   "use strict";
 
@@ -10,7 +6,7 @@
       kicker: "Systems Programming · C",
       title: "C Systems Projects",
       description:
-        "A collection of low-level C programs built on the POSIX API: 24-bit BMP image processing (contrast, rotation, Sobel edge detection), parallelism with fork and mmap shared memory guarded by an atomic spinlock, and shared-memory IPC between separate processes. No libraries, just the system calls.",
+        "A collection of low-level C programs built with the POSIX API. The work includes 24-bit BMP processing with contrast, rotation, and Sobel edge detection; parallel work using fork and mmap shared memory protected by an atomic spinlock; and shared-memory IPC between separate processes.",
       tags: ["C", "fork / mmap", "POSIX IPC", "Sobel / BMP"],
       link: { href: "https://github.com/hiteshwired/c-systems-projects", label: "View code" }
     },
@@ -18,7 +14,7 @@
       kicker: "Digital Architecture · SystemVerilog",
       title: "Pipelined RISC-V Processor (OTTER, RV32I)",
       description:
-        "A 32-bit RV32I microcontroller I built in SystemVerilog for the Basys 3, taken from a single-cycle design all the way to a 5-stage pipeline. I added hazard detection with data forwarding, load-use stalling, and branch flushing, then wrote targeted RISC-V assembly to prove each path out: a forwarding test, a load-use case, and a control-hazard program. The hardest and most rewarding part was chasing wrong-path and load-use bugs one waveform at a time. The repo has the full datapath and control, self-checking testbenches, my assembly plus a from-scratch matrix-multiply benchmark, and the memory-mapped seven-segment peripheral.",
+        "A 32-bit RV32I microcontroller in SystemVerilog for the Basys 3, evolved from a single-cycle design into a five-stage pipeline. I implemented hazard detection, data forwarding, load-use stalls, and branch flushing, then wrote targeted RISC-V assembly and self-checking testbenches to validate each path. Debugging control and data hazards one waveform at a time was the challenge that made the project especially rewarding.",
       tags: ["5-stage pipeline", "Datapath + control", "Hazard detection", "Forwarding + stalls", "Memory-mapped I/O", "Waveform debug"],
       link: { href: "https://github.com/hiteshwired/cpe333-otter-riscv-pipeline", label: "View code" }
     },
@@ -26,7 +22,7 @@
       kicker: "Analog Design · Signal Processing",
       title: "FSK IR Communication System",
       description:
-        "I designed an IR link that sends ASCII data using frequency-shift keying. I simulated the analog front end in LTspice first, then tuned it on the bench until transmission actually stayed reliable.",
+        "An IR link that transmits ASCII data with frequency-shift keying. I simulated the analog front end in LTspice, then tuned and bench-tested the circuit until transmission was reliable.",
       tags: ["TIA + filtering", "Frequency discrimination", "Bench validation"],
       link: { href: "https://github.com/hiteshwired/fsk-ir-receiver", label: "View code" }
     },
@@ -34,7 +30,7 @@
       kicker: "Analog Design · Technical Writing",
       title: "IEEE Low-Voltage Sensing Circuit",
       description:
-        "I designed an undervoltage detection circuit and characterized it with a repeatable voltage sweep. It trips at 8.02 V with about -6.3 mV of error, and I wrote it all up in an IEEE-format report so the results were traceable.",
+        "An undervoltage detection circuit characterized through a repeatable voltage sweep. It trips at 8.02 V with approximately -6.3 mV of error, and I documented the design and results in an IEEE-format report.",
       tags: ["Tolerance analysis", "Voltage sweep", "IEEE report"],
       link: { href: "assets/reports/ieee-low-voltage-sensing-circuit.pdf", label: "Read the report" }
     },
@@ -42,21 +38,21 @@
       kicker: "Digital Logic · FPGA",
       title: "FPGA Parking Lot Controller",
       description:
-        "A finite state machine on an FPGA that tracks occupancy and drives the entry and exit logic from sensor inputs. I verified the transitions in simulation, then brought it up on hardware using the LEDs and switches to prove it worked.",
+        "A finite-state machine on an FPGA that tracks parking occupancy and controls entry and exit from sensor inputs. I verified the state transitions in simulation, then validated the design on hardware with the board’s LEDs and switches.",
       tags: ["FSM design", "RTL simulation", "On-board debug"]
     },
     {
       kicker: "Software · Algorithms",
       title: "Pathfinding Simulation",
       description:
-        "A large object-oriented simulation in Java where agents navigate a world using A* and Dijkstra. I put real thought into the entity hierarchy so it stayed clean as the behaviors got more complex, and compared how the two algorithms held up.",
+        "An object-oriented Java simulation in which agents navigate a world with A* and Dijkstra’s algorithm. I designed the entity hierarchy to stay understandable as the behaviors grew more complex, then compared how the two algorithms performed.",
       tags: ["A* / Dijkstra", "OO design", "yEd / UML"]
     },
     {
       kicker: "Web · Real-time",
       title: "Firebase Chat & Game Platform",
       description:
-        "A web app with Google sign-in, live chat, and a Hangman game backed by a Firebase leaderboard. I handled the client logic and the real-time sync so multiple people could actually play and talk together.",
+        "A web application with Google sign-in, live chat, and a Hangman game backed by a Firebase leaderboard. I built the client-side logic and real-time synchronization so people could play and talk together.",
       tags: ["Firebase", "Google OAuth", "Live sync"]
     }
   ];
@@ -66,7 +62,7 @@
     if (!grid) return;
 
     var frag = document.createDocumentFragment();
-    projects.forEach(function (p, i) {
+    projects.forEach(function (p) {
       var card = document.createElement("article");
       card.className = "project-card card";
 
@@ -174,5 +170,3 @@
     init();
   }
 })();
-
-

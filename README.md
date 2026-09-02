@@ -1,36 +1,34 @@
 ﻿# Hitesh Nandakumar
 
-Computer Engineering student at Cal Poly SLO, into embedded systems and digital design. This repo is my personal site: a place to point people to my projects, my background, and how to reach me.
+I&rsquo;m a Computer Engineering student at Cal Poly SLO who enjoys building at the intersection of hardware and software. This is my personal portfolio: a place to explore my projects, learn a little about how I work, and get in touch.
 
 **Live site → [hiteshwired.github.io/PortfolioWebsite](https://hiteshwired.github.io/PortfolioWebsite/)**
 
-I like working at the line between hardware and software: RISC-V processors, FPGAs, analog circuits, and the code that ties it all together. This site is a small example of that. It is hand-written HTML, CSS, and JavaScript with an animated circuit background, no frameworks and no build step.
+My work spans RISC-V processors, FPGAs, analog circuits, embedded systems, and the software that ties them together. The site itself follows the same hands-on approach: it is built with plain HTML, CSS, and JavaScript, with no framework or build step.
 
-## What is in here
+## What&rsquo;s here
 
-- A single-page site: a hero, my work, how I like to work, an about section, my take on using AI, some of my writing on tech ethics, and contact info.
-- Six project write-ups, each with the tools I actually used.
+- A single-page portfolio with my work, capabilities, background, perspective on AI, ethics writing, and contact information.
+- Seven project write-ups with the tools and methods I used.
 - An animated circuit-board background rendered on a canvas.
-- Everything static, so it runs anywhere and hosts for free.
+- A fully static site that runs locally and deploys directly to GitHub Pages.
 
 ## How I built it
 
-I built this with an agentic AI workflow, and I am pretty open about that because knowing how to work with these tools is part of the job now.
+I built this site with an agentic AI workflow. I used [Kiro](https://kiro.dev) as my main environment, working spec-first: I defined the requirements and design, reviewed the generated implementation, corrected course, and made the final calls on structure and copy. I also used Claude, DeepSeek, and Gemini for second opinions when comparing approaches or checking ideas.
 
-My main environment is [Kiro](https://kiro.dev), an agentic IDE. I drove it spec-first: I described what I wanted, we worked through requirements and a design together, and then it generated the implementation while I reviewed, corrected course, and made the calls on structure and copy. Along the way I leaned on Claude, DeepSeek, and Gemini for second opinions, comparing approaches and sanity-checking things I was not sure about.
-
-The way I see it, the AI moves fast on the parts I already understand. My job is to point it in the right direction, catch the things it gets subtly wrong, and own the result. That is the same habit I bring to embedded work, where a confident-sounding answer is exactly the kind you double-check. The prompts, the decisions, and the final review here are mine.
+AI helps me move faster on work I understand; it does not replace understanding or ownership. My responsibility is to set the direction, catch subtle mistakes, and verify the final result. That matters even more in embedded work, where a confident answer still needs to be checked against testing and hardware-level reasoning.
 
 ## Built with
 
-- Plain HTML and CSS, with a small amount of vanilla JavaScript for the nav, project cards, and the background animation.
-- No frameworks, no bundler, no backend. If you can open a file in a browser, you can run it.
+- Plain HTML and CSS, plus a small amount of vanilla JavaScript for navigation, project cards, and the animated background.
+- No frameworks, bundler, or backend. If you can open a file in a browser, you can run it.
 
-## Running it yourself
+## Run it locally
 
-Clone the repo and open `index.html` in a browser. That is genuinely all it takes.
+Clone the repository and open `index.html` in a browser. That&rsquo;s all it takes.
 
-If you would rather serve it (handy for testing), any static server works:
+To serve it locally instead, use any static server. For example:
 
 ```bash
 python -m http.server
@@ -41,22 +39,21 @@ Then open `http://localhost:8000`.
 ## Layout
 
 ```
-index.html                 # The whole page
-css/styles.css             # Theme and layout
-js/main.js                 # Nav, scroll-spy, project cards
-js/circuit-background.js   # The animated background
-assets/                    # Resume, headshot, and photos
+index.html                 # Page structure and copy
+css/styles.css             # Theme and responsive layout
+js/main.js                 # Navigation, scroll spy, and project cards
+js/circuit-background.js   # Animated background
+assets/                    # Resume, photos, reports, and essays
 ```
 
-## A note on accessibility
+## Accessibility
 
-I tried to keep this usable for everyone: semantic HTML, a skip-to-content link, keyboard-friendly navigation, and visible focus styles. The background animation respects `prefers-reduced-motion` and pauses when the tab is not in view, and the whole site still works with JavaScript turned off.
+The site uses semantic HTML, a skip-to-content link, keyboard-friendly navigation, and visible focus styles. The animated background respects `prefers-reduced-motion` and pauses when the tab is not visible. Core navigation and links continue to work without JavaScript.
 
-## Say hello
+## Connect
 
 - Email: hiteshnandakumar@gmail.com
 - LinkedIn: [linkedin.com/in/hnan06](https://www.linkedin.com/in/hnan06)
 - GitHub: [github.com/hiteshwired](https://github.com/hiteshwired)
 
 Thanks for stopping by.
-
