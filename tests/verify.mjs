@@ -101,7 +101,7 @@ const anchors = attrsOfAnchors(html);
   assert(tagArrays.length === 7, "P2: expected 7 project tag arrays, found " + tagArrays.length);
   tagArrays.forEach((t, i) => assert(t.length > 0, "P2: project " + i + " has no tags"));
 
-  const required = ["OTTER", "FSK IR", "IEEE", "Parking Lot", "Dijkstra", "Firebase", "C Systems"];
+  const required = ["OTTER", "FSK IR", "IEEE", "Parking Lot", "Pathfinding", "Firebase", "C Systems"];
   required.forEach((kw) => {
     assert(mainJs.includes(kw), "P2: required project keyword missing: " + kw);
   });
