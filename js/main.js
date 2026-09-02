@@ -39,7 +39,8 @@
       title: "FPGA Parking Lot Controller",
       description:
         "A finite-state machine on an FPGA that tracks parking occupancy and controls entry and exit from sensor inputs. I verified the state transitions in simulation, then validated the design on hardware with the board’s LEDs and switches.",
-      tags: ["FSM design", "RTL simulation", "On-board debug"]
+      tags: ["FSM design", "RTL simulation", "On-board debug"],
+      link: { href: "https://github.com/hiteshwired/fpga-parking-lot-controller", label: "View code" }
     },
     {
       kicker: "Software · Algorithms",
