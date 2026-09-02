@@ -44,6 +44,22 @@ css/styles.css             # Theme and responsive layout
 js/main.js                 # Navigation, scroll spy, and project cards
 js/circuit-background.js   # Animated background
 assets/                    # Resume, photos, reports, and essays
+tests/                     # Static checks (no dependencies)
+```
+
+## Checks
+
+`tests/` holds two dependency-free Node scripts that parse the static files and assert
+the things I kept breaking by hand. `verify.mjs` checks that every in-page anchor
+resolves to a real section and every section is reachable from the nav, that external
+links carry `target="_blank"` and `rel="noopener"` while `mailto:`/`tel:` links do not,
+that asset paths stay relative so the site works on GitHub Pages, and that the canvas
+stays `aria-hidden` and behind the content. `structure.mjs` checks that HTML tags are
+balanced.
+
+```bash
+node tests/verify.mjs
+node tests/structure.mjs
 ```
 
 ## Accessibility
