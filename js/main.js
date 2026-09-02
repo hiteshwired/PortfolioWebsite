@@ -48,7 +48,7 @@
       description:
         "An object-oriented Java simulation where agents navigate a grid world using A* search with a Manhattan-distance heuristic. I designed the entity hierarchy to stay understandable as the behaviors grew more complex, and kept pathfinding behind an interface so I could compare A* against a simpler greedy strategy.",
       tags: ["A* search", "OO design", "yEd / UML"],
-      link: { href: "https://github.com/hiteshwired/AStar_and_Dijkstra", label: "View code" }
+      link: { href: "https://github.com/hiteshwired/virtual-world-pathfinding", label: "View code" }
     },
     {
       kicker: "Web · Real-time",
