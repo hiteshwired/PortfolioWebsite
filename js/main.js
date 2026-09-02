@@ -46,7 +46,8 @@
       title: "Pathfinding Simulation",
       description:
         "An object-oriented Java simulation in which agents navigate a world with A* and Dijkstra’s algorithm. I designed the entity hierarchy to stay understandable as the behaviors grew more complex, then compared how the two algorithms performed.",
-      tags: ["A* / Dijkstra", "OO design", "yEd / UML"]
+      tags: ["A* / Dijkstra", "OO design", "yEd / UML"],
+      link: { href: "https://github.com/hiteshwired/AStar_and_Dijkstra", label: "View code" }
     },
     {
       kicker: "Web · Real-time",
