@@ -16,19 +16,11 @@
     },
     {
       kicker: "Digital Architecture · SystemVerilog",
-      title: "32-bit RISC-V Microcontroller (OTTER MCU)",
+      title: "Pipelined RISC-V Processor (OTTER, RV32I)",
       description:
-        "I built a 32-bit RV32I processor in SystemVerilog, datapath and control logic and all. The hardest part was tracking down branching and memory-mapped I/O bugs one waveform at a time, which is also where I learned the most. The repo has my RISC-V assembly, a matrix-multiply benchmark, and the seven-segment display peripheral.",
-      tags: ["Datapath + control", "Memory-mapped I/O", "Waveform debug"],
-      link: { href: "https://github.com/hiteshwired/otter-riscv-mcu", label: "View code" }
-    },
-    {
-      kicker: "Digital Architecture · SystemVerilog",
-      title: "Pipelined RISC-V Processor",
-      description:
-        "A pipelined RV32I processor that goes well past the single-cycle design: I added hazard detection with data forwarding and stalling, then wrote targeted assembly to prove it out, including a forwarding test, a load-use case, and a control-hazard program. I benchmarked it with matrix multiply and compared NOP-insertion against forwarding to see the real performance difference.",
-      tags: ["Pipelining", "Hazard detection", "Forwarding + stalls", "Matrix multiply benchmark"],
-      link: { href: "https://github.com/hiteshwired/otter-riscv-mcu/tree/main/asm", label: "View the hazard tests" }
+        "A 32-bit RV32I microcontroller I built in SystemVerilog for the Basys 3, taken from a single-cycle design all the way to a 5-stage pipeline. I added hazard detection with data forwarding, load-use stalling, and branch flushing, then wrote targeted RISC-V assembly to prove each path out: a forwarding test, a load-use case, and a control-hazard program. The hardest and most rewarding part was chasing wrong-path and load-use bugs one waveform at a time. The repo has the full datapath and control, self-checking testbenches, my assembly plus a from-scratch matrix-multiply benchmark, and the memory-mapped seven-segment peripheral.",
+      tags: ["5-stage pipeline", "Datapath + control", "Hazard detection", "Forwarding + stalls", "Memory-mapped I/O", "Waveform debug"],
+      link: { href: "https://github.com/hiteshwired/cpe333-otter-riscv-pipeline", label: "View code" }
     },
     {
       kicker: "Analog Design · Signal Processing",
